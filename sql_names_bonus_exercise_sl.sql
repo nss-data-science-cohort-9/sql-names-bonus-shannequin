@@ -42,11 +42,27 @@ FROM names
 WHERE name ~* '([a-z])\1{2}'
 ORDER BY name;
 
--- For the next few questions, you'll likely need to make use of subqueries. A subquery is a SQL query nested inside another query. You'll learn more about subqueries over the next few DataCamp assignments.
+-- For the next few questions, you'll likely need to make use of subqueries. 
+-- A subquery is a SQL query nested inside another query. 
+-- You'll learn more about subqueries over the next few DataCamp assignments.
 
--- 5. On question 17 of the first part of the exercise, you found names that only appeared in the 1950s. Now, find all names that did not appear in the 1950s but were used both before and after the 1950s. We'll answer this question in two steps.
+-- 5. On question 17 of the first part of the exercise, you found names that only appeared in the 1950s. 
+-- Now, find all names that did not appear in the 1950s but were used both before and after the 1950s.
+-- We'll answer this question in two steps.
+
 -- 	a. First, write a query that returns all names that appeared during the 1950s.
--- 	b. Now, make use of this query along with the IN keyword in order the find all names that did not appear in the 1950s but which were used both before and after the 1950s. See the example "A subquery with the IN operator." on this page: https://www.dofactory.com/sql/subquery.
+SELECT name, year
+FROM names
+WHERE year BETWEEN 1950 and 1959;
+
+-- 	b. Now, make use of this query along with the IN keyword in order the find all names that did not appear in the 1950s but which were used both before and after the 1950s. 
+-- See the example "A subquery with the IN operator." on this page: https://www.dofactory.com/sql/subquery.
+SELECT name, year
+FROM names
+WHERE name NOT IN (SELECT name
+					FROM names
+					WHERE year BETWEEN 1950 and 1959)
+ORDER BY name;
 	
 -- 6. In question 16, you found how many names appeared in only one year. Which year had the highest number of names that only appeared once?
 
